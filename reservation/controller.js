@@ -47,8 +47,13 @@ const addIdModels = async (model, idModel, idReservation)=>{
 
 const removeIdModels = async (model, idModel, idReservation)=>{
   const document = await model.findById(idModel)
-  const reservation = document.reservation.filter(x => idReservation !== x.toString())
-  await model.findByIdAndUpdate(idModel, {reservation})
+  console.log(document)
+  if(document !== null){
+    const reservation = document.reservation.filter(x => idReservation !== x.toString())
+    await model.findByIdAndUpdate(idModel, {reservation})
+  } else {
+    const reservation = []
+  }
 }
 
 exports.create = async(req,res)=>{
